@@ -1,0 +1,6 @@
+framework module Pods_TextTransfer {
+  umbrella header "Pods-TextTransfer-umbrella.h"
+
+  export *
+  module * { export * }
+}
