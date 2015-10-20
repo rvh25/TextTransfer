@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3F210B18775AF6CBE3DACEB4"
+               BlueprintIdentifier = "707175D6880A7045FE898C05"
                BuildableName = "Pods_TextTransferUITests.framework"
                BlueprintName = "Pods-TextTransferUITests"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -17,7 +17,7 @@ To get started with SwiftyDropbox, we recommend you add it to your project using
   platform :ios, '8.0'
   use_frameworks!
 
-  pod 'SwiftyDropbox', :git => 'git@github.com:dropbox/SwiftyDropbox.git', :branch => 'swift-2.0'
+  pod 'SwiftyDropbox', :git => 'git@github.com:dropbox/SwiftyDropbox.git', :tag => '0.5'
 ``` 
 
 1. From the project directory, install the SwiftyDropbox SDK with:
@@ -41,4 +41,4 @@ token for your own Dropbox account.
 
 ## Read more
 
-Read more about SwiftyDropbox on our [developer blog](https://blogs.dropbox.com/developers/2015/05/try-out-swiftydropbox-the-new-swift-sdk-for-dropbox-api-v2/).
+Read more about SwiftyDropbox on our [developer site](https://www.dropbox.com/developers/documentation/swift).

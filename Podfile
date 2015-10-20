@@ -1,7 +1,7 @@
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'SwiftyDropbox', :git => 'https://github.com/dropbox/SwiftyDropbox.git', :tag => 'swift-2.0'
+pod 'SwiftyDropbox', :git => 'https://github.com/dropbox/SwiftyDropbox.git', :tag => '0.5'
 
 
 target 'TextTransfer' do
