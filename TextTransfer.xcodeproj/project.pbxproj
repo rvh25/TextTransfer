@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E2C8F44D190549B77928BED /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B7BE8B601B5576EB563E622 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		4BD6128D786F9F5173385E47 /* Pods_TextTransfer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F640A322AA142AD04654C2C4 /* Pods_TextTransfer.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FF007F0A1BDEC925001CC4D6 /* ModifyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF007F091BDEC925001CC4D6 /* ModifyTableViewController.swift */; };
+		FF21331D1BDA4D2A00795EA7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21331C1BDA4D2A00795EA7 /* TableViewController.swift */; };
 		FF3E8D341BA4CCDA001E1E67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3E8D331BA4CCDA001E1E67 /* AppDelegate.swift */; };
 		FF3E8D361BA4CCDA001E1E67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3E8D351BA4CCDA001E1E67 /* ViewController.swift */; };
 		FF3E8D391BA4CCDA001E1E67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3E8D371BA4CCDA001E1E67 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		8B7BE8B601B5576EB563E622 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF949106EAA457F677F42EFF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F640A322AA142AD04654C2C4 /* Pods_TextTransfer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextTransfer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF007F091BDEC925001CC4D6 /* ModifyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyTableViewController.swift; sourceTree = "<group>"; };
+		FF21331C1BDA4D2A00795EA7 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		FF3E8D301BA4CCDA001E1E67 /* TextTransfer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextTransfer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3E8D331BA4CCDA001E1E67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF3E8D351BA4CCDA001E1E67 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		FF3E8D271BA4CCDA001E1E67 = {
 			isa = PBXGroup;
 			children = (
+				FF21331C1BDA4D2A00795EA7 /* TableViewController.swift */,
 				FF3E8D321BA4CCDA001E1E67 /* TextTransfer */,
 				FF3E8D471BA4CCDA001E1E67 /* TextTransferTests */,
 				FF3E8D521BA4CCDA001E1E67 /* TextTransferUITests */,
@@ -128,6 +133,7 @@
 				FF3E8D331BA4CCDA001E1E67 /* AppDelegate.swift */,
 				FF3E8D351BA4CCDA001E1E67 /* ViewController.swift */,
 				FF3E8D371BA4CCDA001E1E67 /* Main.storyboard */,
+				FF007F091BDEC925001CC4D6 /* ModifyTableViewController.swift */,
 				FF3E8D3A1BA4CCDA001E1E67 /* Assets.xcassets */,
 				FF3E8D3C1BA4CCDA001E1E67 /* LaunchScreen.storyboard */,
 				FF3E8D3F1BA4CCDA001E1E67 /* Info.plist */,
@@ -339,6 +345,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF3E8D361BA4CCDA001E1E67 /* ViewController.swift in Sources */,
+				FF007F0A1BDEC925001CC4D6 /* ModifyTableViewController.swift in Sources */,
+				FF21331D1BDA4D2A00795EA7 /* TableViewController.swift in Sources */,
 				FF3E8D341BA4CCDA001E1E67 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TextTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.TextTransfer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -497,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TextTransfer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.TextTransfer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
