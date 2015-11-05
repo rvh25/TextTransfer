@@ -10,6 +10,8 @@ import UIKit
 
 class TableViewController: UITableViewController {
 
+    
+    var filename: String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,19 +34,24 @@ class TableViewController: UITableViewController {
         return 0
     }*/
     
-    func entries(var files: Array<String>)-> Array<String> {
+    /*func entries(var files: Array<String>)-> Array<String> {
         var data = files
         return files
     }
-    var a = [String]()
+    var a = [String]()*/
 
     
     //var data = ViewController().entries(a)
-    var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
+    //var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
+    
+    //var data = ViewController().entries(a)
+    var data = ViewController().filenames
+    //print(data[0])
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //return 0
+        //print (data.count)
         return data.count
     
     }
@@ -67,6 +74,7 @@ class TableViewController: UITableViewController {
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
             ViewController().downloadfile("/\(name)")
+            //ViewController().listoffiles2("\(name)")
         }
         //ViewController().downloadfile("/\(name)")
     }

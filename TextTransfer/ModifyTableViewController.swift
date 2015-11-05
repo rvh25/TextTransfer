@@ -56,7 +56,7 @@ class ModifyTableViewController: UITableViewController {
         //print(currentCell!.textLabel!.text)
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
-            ViewController().modifyfile("/\(name)")
+            //ViewController().modifyfile("/\(name)")
         }
     }
     
