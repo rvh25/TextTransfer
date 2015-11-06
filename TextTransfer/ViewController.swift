@@ -87,7 +87,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 let indexPath = tableView.indexPathForSelectedRow
                 let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell?
                 if let name = currentCell!.textLabel!.text {
-                self.downloadfile("/\(name)")
+                //self.downloadfile("/\(name)")
                 }
                 }
             }
@@ -257,38 +257,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func downloadfile(filename: String){
+        let documentDirectoryURL = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+        let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as NSURL
         if let client = Dropbox.authorizedClient {
-            client.filesDownload(path: filename).response { response, error in
-                if let (metadata, data) = response {
-                    print("*** Download file ***")
-                    print("Downloaded file name: \(metadata.name)")
-                    //print("Downloaded file data: \(data)")
-
-                    
-                    //self.modifyfile("\(self.textedit.text!)", filename: "/Untitled.rtf")
-
-                } else {
-                    print(error!)
+            
+            let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
+                (temporaryURL, response) in
+                
+                if let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0] as? NSURL {
+                    let path = directoryURL.URLByAppendingPathComponent("\(filename)")
+                    return path
                 }
+                return temporaryURL
             }
-            client.filesGetPreview(path: filename).response { response, error in
-                if let result = response {
-                    print("success")
-                } else {
-                    print("fail")
-                }
+            client.filesDownload(path: filename, destination: destination).response { response, error in
+
+                    if let (metadata, data) = response {
+                        print("*** Download file ***")
+                        print("Downloaded file name: \(metadata.name)")
+                        //print("Downloaded file data: \(data)")
+                        
+                        
+                        //self.modifyfile("\(self.textedit.text!)", filename: "/Untitled.rtf")
+                        
+                    } else {
+                        print(error!)
+                    }
             }
         }
-        
-        
-        let documentDirectoryURL = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        //let path = filename.removeAtIndex(filename.startIndex)
-        let path = String(filename.characters.dropFirst())
-        // create the destination url for the text file to be saved
-        let fileDestinationUrl = documentDirectoryURL.URLByAppendingPathComponent("\(path)")
-        //print(fileDestinationUrl)
-        //self.listoffiles(fileDestinationUrl)
-        
     }
     
   
