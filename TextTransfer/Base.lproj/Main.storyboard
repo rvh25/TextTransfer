@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iP3-Gk-MdA">
-                                <rect key="frame" x="318" y="288" width="174" height="57"/>
+                                <rect key="frame" x="308" y="165" width="174" height="57"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Link to Dropbox"/>
@@ -26,15 +26,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8R-yw-EzW">
-                                <rect key="frame" x="480" y="380" width="48" height="30"/>
+                                <rect key="frame" x="235" y="313" width="44" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Modify"/>
+                                <state key="normal" title="Check"/>
                                 <connections>
-                                    <action selector="Modify:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IJp-qn-HS5"/>
+                                    <action selector="Check:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mlr-NY-ao1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NV-5b-tIY">
-                                <rect key="frame" x="370" y="380" width="50" height="30"/>
+                                <rect key="frame" x="348" y="224" width="50" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Upload"/>
                                 <connections>
@@ -42,59 +42,68 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVG-4a-KI5">
-                                <rect key="frame" x="227" y="380" width="69" height="30"/>
+                                <rect key="frame" x="223" y="224" width="69" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Download"/>
                                 <connections>
                                     <action selector="download:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DdF-KE-Rkd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgK-oV-IRC">
-                                <rect key="frame" x="380" y="241" width="30" height="30"/>
-                                <animations/>
-                                <state key="normal" title="List"/>
-                                <connections>
-                                    <action selector="listDirectory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SMI-Fu-n1T"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAj-jk-yMv">
-                                <rect key="frame" x="227" y="430" width="69" height="30"/>
+                                <rect key="frame" x="219" y="271" width="77" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Download"/>
+                                <state key="normal" title="Download2"/>
                                 <connections>
                                     <segue destination="r6H-B6-XZe" kind="presentation" id="6MC-Nj-iVg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUq-zx-k0C">
-                                <rect key="frame" x="479" y="430" width="48" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Modify"/>
-                                <connections>
-                                    <segue destination="1dN-Kq-H8R" kind="presentation" id="nMR-6t-kAN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5TB-Rx-QKP">
-                                <rect key="frame" x="358" y="203" width="74" height="30"/>
-                                <animations/>
-                                <state key="normal" title="filecontent"/>
-                                <connections>
-                                    <action selector="viewFileContent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rFw-Bm-aVB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDF-g0-WSk">
-                                <rect key="frame" x="219" y="468" width="62" height="30"/>
-                                <animations/>
-                                <state key="normal" title="listoffiles"/>
-                                <connections>
-                                    <action selector="listiffiles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vqR-Bq-aYF"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKG-3V-cgK">
-                                <rect key="frame" x="357" y="499" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKG-3V-cgK">
+                                <rect key="frame" x="434" y="313" width="97" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Joy-vM-ADi">
+                                <rect key="frame" x="434" y="360" width="97" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="filename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCO-x3-gDP">
+                                <rect key="frame" x="348" y="317" width="66" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="file text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esq-fh-bAu">
+                                <rect key="frame" x="357" y="369" width="57" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKQ-RW-ZAR">
+                                <rect key="frame" x="212" y="353" width="90" height="30"/>
+                                <animations/>
+                                <state key="normal" title="View content"/>
+                                <connections>
+                                    <action selector="viewFileContent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mx1-Qg-v9w"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wtf-hJ-iCh">
+                                <rect key="frame" x="434" y="407" width="97" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="file extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtc-dH-pj8">
+                                <rect key="frame" x="323" y="416" width="101" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -102,7 +111,9 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="textedit" destination="KKG-3V-cgK" id="nNx-Yk-uNP"/>
+                        <outlet property="fileextension" destination="Wtf-hJ-iCh" id="9gG-PU-TY1"/>
+                        <outlet property="filename" destination="KKG-3V-cgK" id="2AM-qc-W7E"/>
+                        <outlet property="filetext" destination="Joy-vM-ADi" id="qhy-ia-s6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

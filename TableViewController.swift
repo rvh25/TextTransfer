@@ -34,22 +34,18 @@ class TableViewController: UITableViewController {
         return 0
     }*/
     
-    /*func entries(var files: Array<String>)-> Array<String> {
-        var data = files
-        return files
-    }
-    var a = [String]()*/
-
-    //var data = ViewController().entries(a)
-    //var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
+///////
+    /*var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
     
-    func files(files: Array<String>) -> Array<String> {
-        return files
+    /*func files(files: Array<String>) -> Array<String> {
+        let data = files
+        return data
+        //return files
     }
     
-    var data = files
+    var data = files*/
 
-    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //return 0
         //print (data.count)
@@ -65,7 +61,7 @@ class TableViewController: UITableViewController {
 
         return cell
     }
-    
+
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
         let indexPath = tableView.indexPathForSelectedRow
@@ -73,7 +69,6 @@ class TableViewController: UITableViewController {
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
             ViewController().downloadfile("/\(name)")
-            //ViewController().listoffiles2("\(name)")
         }
     }*/
             
