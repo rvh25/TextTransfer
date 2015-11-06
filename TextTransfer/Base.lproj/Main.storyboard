@@ -89,16 +89,8 @@
                                     <action selector="listiffiles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vqR-Bq-aYF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jgU-Sq-ZWs">
-                                <rect key="frame" x="370" y="468" width="34" height="30"/>
-                                <animations/>
-                                <state key="normal" title="write"/>
-                                <connections>
-                                    <action selector="write:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oZ7-hk-yrL"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKG-3V-cgK">
-                                <rect key="frame" x="47" y="204" width="97" height="30"/>
+                                <rect key="frame" x="357" y="499" width="97" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -178,11 +170,6 @@
                         <barButtonItem key="leftBarButtonItem" title="Item" systemItem="cancel" id="Gay-ly-igW">
                             <connections>
                                 <segue destination="kH3-on-lfM" kind="unwind" unwindAction="cancel:" id="ocr-tT-Vo9"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Download" id="YBs-WK-dih">
-                            <connections>
-                                <segue destination="kH3-on-lfM" kind="unwind" unwindAction="download2:" id="gVc-n6-wyZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

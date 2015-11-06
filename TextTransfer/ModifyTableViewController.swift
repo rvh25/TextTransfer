@@ -53,7 +53,6 @@ class ModifyTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
         let indexPath = tableView.indexPathForSelectedRow
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell?
-        //print(currentCell!.textLabel!.text)
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
             //ViewController().modifyfile("/\(name)")

@@ -40,21 +40,21 @@ class TableViewController: UITableViewController {
     }
     var a = [String]()*/
 
-    
     //var data = ViewController().entries(a)
     //var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
     
-    //var data = ViewController().entries(a)
-    var data = ViewController().filenames
-    //print(data[0])
+    func files(files: Array<String>) -> Array<String> {
+        return files
+    }
+    
+    var data = files
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         //return 0
         //print (data.count)
         return data.count
-    
-    }
+        }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -70,14 +70,12 @@ class TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
         let indexPath = tableView.indexPathForSelectedRow
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell?
-        //print(currentCell!.textLabel!.text)
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
             ViewController().downloadfile("/\(name)")
             //ViewController().listoffiles2("\(name)")
         }
-        //ViewController().downloadfile("/\(name)")
-    }
+    }*/
             
 
     /*
