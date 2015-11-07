@@ -8,10 +8,13 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+var data: NSMutableArray!
 
+
+class TableViewController: UITableViewController {
+ 
+    var data = []
     
-    var filename: String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,31 +37,15 @@ class TableViewController: UITableViewController {
         return 0
     }*/
     
-///////
-    /*var data = ["Photos", "Public", "Getting Started.pdf", "E80", "Untitled.rtf", "Docs","hello.txt","1.txt","1.pdf","1","test.txt","Sample.txt"]
-    
-    /*func files(files: Array<String>) -> Array<String> {
-        let data = files
-        return data
-        //return files
-    }
-    
-    var data = files*/
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //return 0
-        //print (data.count)
         return data.count
         }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FileCell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = data[indexPath.row]
-
-        // Configure the cell...
-
+        cell.textLabel?.text = data[indexPath.row] as! String
         return cell
     }
 
@@ -70,7 +57,7 @@ class TableViewController: UITableViewController {
         if let name = currentCell!.textLabel!.text {
             ViewController().downloadfile("/\(name)")
         }
-    }*/
+    }
             
 
     /*

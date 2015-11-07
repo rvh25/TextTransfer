@@ -43,6 +43,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         print(entry.name)
                         self.filenames!.append(entry.name)
                     }
+
                 } else {
                     print(error!)
                 }
@@ -50,7 +51,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,11 +81,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print(error)
             print("No file found")
         }
-    }
-    
-    
-    @IBAction func download(sender: AnyObject) {
-        downloadfile("file.txt")
     }
     
     func downloadfile(filename: String){
@@ -204,5 +199,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancel(segue:UIStoryboardSegue) {
     }
 
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var DestViewController = (segue.destinationViewController as! UINavigationController).topViewController as! TableViewController
+        DestViewController.data = self.filenames
+    }
 }
 

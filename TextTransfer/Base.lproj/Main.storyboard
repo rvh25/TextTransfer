@@ -41,22 +41,6 @@
                                     <action selector="upload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MlF-Yv-J44"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVG-4a-KI5">
-                                <rect key="frame" x="223" y="224" width="69" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Download"/>
-                                <connections>
-                                    <action selector="download:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DdF-KE-Rkd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAj-jk-yMv">
-                                <rect key="frame" x="219" y="271" width="77" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Download2"/>
-                                <connections>
-                                    <segue destination="r6H-B6-XZe" kind="presentation" id="6MC-Nj-iVg"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKG-3V-cgK">
                                 <rect key="frame" x="434" y="313" width="97" height="30"/>
                                 <animations/>
@@ -104,6 +88,14 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAj-jk-yMv">
+                                <rect key="frame" x="223" y="224" width="69" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Download"/>
+                                <connections>
+                                    <segue destination="r6H-B6-XZe" kind="presentation" id="6MC-Nj-iVg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
