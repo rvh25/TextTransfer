@@ -5,6 +5,21 @@ public class Box<T> {
 	public let unboxed : T
 	init (_ v : T) { self.unboxed = v }
 }
+
+public class BabelClient {
+    var manager : Manager
+    var baseHosts : [String : String]
+    
+    func additionalHeaders(noauth: Bool) -> [String: String] {
+        return [:]
+    }
+    
+    init(manager: Manager, baseHosts : [String : String]) {
+        self.manager = manager
+        self.baseHosts = baseHosts
+    }
+}
+
 public enum CallError<EType> : CustomStringConvertible {
     case InternalServerError(Int, String?, String?)
     case BadInputError(String?, String?)
@@ -50,12 +65,12 @@ public enum CallError<EType> : CustomStringConvertible {
                 ret += ": \(m)"
             }
             return ret
-        case let .RouteError(_, requestId):
+        case let .RouteError(box, requestId):
             var ret = ""
             if let r = requestId {
                 ret += "[request-id \(r)] "
             }
-            ret += "API route error - handle programmatically"
+            ret += "API route error - \(box.unboxed)"
             return ret
         case let .OSError(err):
             if let e = err {
@@ -153,7 +168,11 @@ public class BabelRequest<RType : JSONSerializer, EType : JSONSerializer> {
 public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : BabelRequest<RType, EType> {
     init(client: BabelClient, host: String, route: String, params: JSON, responseSerializer: RType, errorSerializer: EType) {
         let url = "\(client.baseHosts[host]!)\(route)"
-        let headers = ["Content-Type": "application/json"]
+        var headers = ["Content-Type": "application/json"]
+        let noauth = (host == "notify")
+        for (header, val) in client.additionalHeaders(noauth) {
+            headers[header] = val
+        }
         
         let request = client.manager.request(.POST, url, parameters: [:], headers: headers, encoding: ParameterEncoding.Custom {(convertible, _) in
                 let mutableRequest = convertible.URLRequest.copy() as! NSMutableURLRequest
@@ -163,6 +182,7 @@ public class BabelRpcRequest<RType : JSONSerializer, EType : JSONSerializer> : B
         super.init(request: request,
             responseSerializer: responseSerializer,
             errorSerializer: errorSerializer)
+        request.resume()
     }
     
     /// Called when a request completes.
@@ -201,6 +221,11 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
             var headers = [
                 "Content-Type": "application/octet-stream",
             ]
+            let noauth = (host == "notify")
+            for (header, val) in client.additionalHeaders(noauth) {
+                headers[header] = val
+            }
+            
             if let data = dumpJSON(params) {
                 let value = asciiEscape(utf8Decode(data))
                 headers["Dropbox-Api-Arg"] = value
@@ -219,6 +244,7 @@ public class BabelUploadRequest<RType : JSONSerializer, EType : JSONSerializer> 
             super.init(request: request,
                        responseSerializer: responseSerializer,
                        errorSerializer: errorSerializer)
+            request.resume()
     }
 
     
@@ -263,9 +289,11 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
             let value = asciiEscape(utf8Decode(data))
             headers["Dropbox-Api-Arg"] = value
         }
-
-
         
+        let noauth = (host == "notify")
+        for (header, val) in client.additionalHeaders(noauth) {
+            headers[header] = val
+        }
         
         weak var _self : BabelDownloadRequest<RType, EType>!
         
@@ -279,6 +307,7 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
 
         super.init(request: request, responseSerializer: responseSerializer, errorSerializer: errorSerializer)
         _self = self
+        request.resume()
     }
     
     /// Called as the download progresses
@@ -298,11 +327,11 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
     /// :returns: The request, for chaining purposes.
     public func response(completionHandler: ( (RType.ValueType, NSURL)?, CallError<EType.ValueType>?) -> Void) -> Self {
         
-        self.request.validate().response {
+        self.request.validate()
+            .response {
             (request, response, dataObj, error) -> Void in
-            let data = NSData(contentsOfURL: self.urlPath!)!
-            
             if error != nil {
+                let data = self.urlPath.flatMap { NSData(contentsOfURL: $0) }
                 completionHandler(nil, self.handleResponseError(response, data: data, error: error))
             } else {
                 let result = response!.allHeaderFields["Dropbox-Api-Result"] as! String
@@ -315,18 +344,3 @@ public class BabelDownloadRequest<RType : JSONSerializer, EType : JSONSerializer
         return self
     }
 }
-
-/// A dropbox API client
-public class BabelClient {
-    var baseHosts : [String : String]
-    
-    var manager : Manager
-    
-
-    
-    public init(manager : Manager, baseHosts : [String : String]) {
-        self.baseHosts = baseHosts
-        self.manager = manager
-    }
-}
-

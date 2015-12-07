@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyDropbox
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     var filenames: Array<String>!
     
@@ -20,12 +20,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.filetext.delegate = self;
         self.fileextension.delegate = self;
         
+        self.modify.delegate = self
+        
+        self.modifycontent.delegate = self;
+        self.modifycontent.editable = true
+        self.modifycontent.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).CGColor
+        self.modifycontent.layer.borderWidth = 1.0
+        self.modifycontent.layer.cornerRadius = 5
+            
         self.filenames = []
         // Verify user is logged into Dropbox
         if let client = Dropbox.authorizedClient {
             
             // Get the current user's account info
-            client.usersGetCurrentAccount().response { response, error in
+            client.users.getCurrentAccount().response { response, error in
                 print("*** Get current account ***")
                 if let account = response {
                     print("Hello \(account.name.givenName)")
@@ -35,7 +43,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             
             // List folder
-            client.filesListFolder(path: "").response { response, error in
+            client.files.listFolder(path: "").response { response, error in
                 print("*** List folder ***")
                 if let result = response {
                     print("Folder contents:")
@@ -70,7 +78,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         filecontent("test.txt")
     }
     
-    func filecontent(filepath: String) {
+    /*func filecontent(filepath: String) {
         let documentDirectoryURL = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
         
         let fileDestinationUrl = documentDirectoryURL.URLByAppendingPathComponent("\(filepath)")
@@ -81,9 +89,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print(error)
             print("No file found")
         }
+    }*/
+    
+    func filecontent(filepath: String) {
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        
+        let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+        do {
+            let contentsOfFile = try NSString(contentsOfFile: fileDestinationUrl.path!, encoding: NSUTF8StringEncoding)
+            print("Content of file = \(contentsOfFile)")
+        } catch let error as NSError {
+            print(error)
+            print("No file found")
+        }
     }
     
-    func downloadfile(filename: String){
+    /*func downloadfile(filename: String){
         if let client = Dropbox.authorizedClient {
             
             let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
@@ -95,7 +117,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 return temporaryURL
             }
-            client.filesDownload(path: filename, destination: destination).response { response, error in
+            client.files.download(path: filename, destination: destination).response { response, error in
 
                     if let (metadata, data) = response {
                         print("*** Download file ***")
@@ -105,10 +127,170 @@ class ViewController: UIViewController, UITextFieldDelegate {
                         print(error!)
                     }
             }
+        
+        }
+    }*/
+    
+    func downloadfile(filename: String){
+        if let client = Dropbox.authorizedClient {
             
+            let destination : (NSURL, NSHTTPURLResponse) -> NSURL = { temporaryURL, response in
+                let fileManager = NSFileManager.defaultManager()
+                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+                // generate a unique name for this file in case we've seen it before
+                //let UUID = NSUUID().UUIDString
+//                let pathComponent = "\(UUID)-\(response.suggestedFilename!)"
+                
+
+                let newfilename = String(filename.characters.dropFirst())
+                
+                if self.checkexisting(newfilename) {
+                    let index = newfilename.startIndex
+                    let index2 = newfilename.endIndex.advancedBy(-4)
+                    let other = newfilename[Range(start: index, end: index2)]
+                    print(other)
+                    let character = other.characters.last!
+                    print(character)
+                    
+                    let char = String(character)
+                    
+                    if char >= "0" && char <= "8" {
+                        let number = Int(char)
+                        let newvalue = number! + 1
+                        let newchar = String(newvalue)
+                        
+                        let index3 = other.endIndex.advancedBy(-2)
+                        let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                        print(other2)
+                        let name = other2 + newchar + ".txt"
+                        
+                        return directoryURL.URLByAppendingPathComponent(name)
+                    }
+                        
+                    if char == "9" {
+                        let index3 = other.endIndex.advancedBy(-2)
+                        let char = other[index3]
+                        let charString = String(char)
+                        
+                        if charString >= "1" && charString <= "8" {
+                            let number = Int(charString)
+                            let newvalue = number! + 1
+                            let newchar = String(newvalue)
+                            
+                            let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                            print(other2)
+                            let name = other2 + newchar + "0.txt"
+                            
+                            if charString == "9" {
+                                let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                                print(other2)
+                                let name = other2 + newchar + "100.txt"
+                                
+                                return directoryURL.URLByAppendingPathComponent(name)
+                            }
+                            
+                            return directoryURL.URLByAppendingPathComponent(name)
+
+                        }
+                            
+                        else {
+                            let index3 = other.endIndex.advancedBy(-2)
+                            let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                            print(other2)
+                            let name = other2  + "10.txt"
+                            
+                            return directoryURL.URLByAppendingPathComponent(name)
+                        }
+
+                    }
+                    
+                    else if char == ")" {
+                        let index3 = other.endIndex.advancedBy(-2)
+                        let char = other[index3]
+                        let charString = String(char)
+                            if charString >= "0" && charString <= "9" {
+                                let number = Int(charString)
+                                let newvalue = number! + 1
+                                let newchar = String(newvalue)
+                                
+                                let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                                print(other2)
+                                let name = other2 + newchar + ").txt"
+                                
+                                if self.checkexisting(name) {
+                                    let index = name.startIndex
+                                    let index2 = name.endIndex.advancedBy(-4)
+                                    let other = newfilename[Range(start: index, end: index2)]
+                                    print(other)
+                                    let newname = other + ".1.txt"
+                                    print(newname)
+                                    return directoryURL.URLByAppendingPathComponent(newname)
+                                    
+                                }
+                                
+                                return directoryURL.URLByAppendingPathComponent(name)
+                                
+                        }
+                        //return directoryURL.URLByAppendingPathComponent(name)
+                    }
+                        
+                    else {
+                        let name = other + "1.txt"
+                        
+                        return directoryURL.URLByAppendingPathComponent(name)
+                    }
+                }
+                    
+                else {
+                    return directoryURL.URLByAppendingPathComponent(newfilename)
+
+                }
+                
+//                let newurl = directoryURL.URLByAppendingPathComponent("\(newfilename)")
+//                print(newurl)
+                //return directoryURL.URLByAppendingPathComponent(newfilename)
+//                return directoryURL.URLByAppendingPathComponent(pathComponent)
+
+                return directoryURL.URLByAppendingPathComponent(newfilename)
+
+            }
+
+    
+            client.files.download(path: filename, destination: destination).response { response, error in
+                if let (metadata, url) = response {
+                    //
+                    print(url)
+                    print("*** Download file ***")
+                    let data = NSData(contentsOfURL: url)
+                    print("Downloaded file name: \(metadata.name)")
+                    print("Downloaded file url: \(url)")
+                    print("Downloaded file data: \(data)")
+                } else {
+                    print(error!)
+                }
+            }
+            
+        }
+
+    }
+    
+    func checkexisting(filepath: String) -> Bool {
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        
+        let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+        let filemgr = NSFileManager.defaultManager()
+        if (filemgr.fileExistsAtPath(fileDestinationUrl.path!)) {
+            print("file found")
+            return true
+        }
+        else {
+            print("none")
+            return false
         }
     }
     
+    @IBOutlet var modifycontent: UITextView!
     
     @IBOutlet var filename: UITextField!
     
@@ -119,6 +301,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
+    }
+        
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     @IBAction func upload(sender: AnyObject) {
@@ -133,7 +323,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let fileData = text.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
             print(fileData)
                 
-            client.filesUpload(path:filename, body: fileData!).response { response, error in
+            //client.filesUpload(path:filename, body: fileData!).response { response, error in
+            client.files.upload(path:filename, autorename: true, body: fileData!).response { response, error in
+    
                 
                 if let metadata = response {
                     print("*** Upload file ****")
@@ -141,7 +333,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     print("Uploaded file revision: \(metadata.rev)")
                     
                     // Get file (or folder) metadata
-                    client.filesGetMetadata(path: "/test.txt").response { response, error in
+                    //client.filesGetMetadata(path: "/test.txt").response { response, error in
+                    client.files.getMetadata(path: "/test.txt").response { response, error in
+    
                         print("*** Get file metadata ***")
                         if let metadata = response {
                             //print("Name: \(metadata.name)")
@@ -169,7 +363,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func files() {
+    /*func files() {
         let documentsURL = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
 
         do {
@@ -179,10 +373,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-    }
+    }*/
 
     
-    func check(filepath: String) {
+    func files() {
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        
+        do {
+            let directoryContents = try fileManager.contentsOfDirectoryAtURL(directoryURL.absoluteURL, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions())
+            print(directoryContents)
+            
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+    /*func check(filepath: String) {
         
         let documentDirectoryURL = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
         
@@ -194,7 +402,60 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else {
             print("none")
         }
+    }*/
+    
+    func check(filepath: String) {
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        
+        let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+        let filemgr = NSFileManager.defaultManager()
+        if (filemgr.fileExistsAtPath(fileDestinationUrl.path!)) {
+            print("file found")
+        }
+        else {
+            print("none")
+        }
     }
+    
+    @IBAction func Modify(sender: AnyObject) {
+        print(self.modifycontent.text)
+        //print(self.modify.text)
+    }
+    
+    @IBOutlet var modify: UITextField!
+    
+    func write(filepath: String) {
+        /*if (self.modifycontent.text == nil) {
+            print("nil")*/
+        
+            //let text = "\(self.modifycontent.text)"
+        
+        
+
+        let text = "\(self.modify.text!)"
+        print(filepath)
+        
+        //let text = "text"
+        
+        let fileManager = NSFileManager.defaultManager()
+        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+        let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+        print(fileDestinationUrl)
+        
+            do {
+                try text.writeToURL(fileDestinationUrl, atomically: true, encoding: NSUTF8StringEncoding)
+
+                let contentsOfFile = try! NSString(contentsOfURL: fileDestinationUrl, encoding: NSUTF8StringEncoding)
+                print("Content of file = \(contentsOfFile)")
+                createfile("\(contentsOfFile)", filename: "/\(filepath)")
+                
+            } catch let error as NSError {
+                print(error)
+                print("No file found")
+            }
+    }
+    
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
     }
@@ -205,4 +466,3 @@ class ViewController: UIViewController, UITextFieldDelegate {
         DestViewController.data = self.filenames
     }
 }
-
