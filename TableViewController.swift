@@ -55,13 +55,13 @@ class TableViewController: UITableViewController {
         let currentCell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell?
         //print("/\(currentCell!.textLabel!.text)")
         if let name = currentCell!.textLabel!.text {
-            //ViewController().downloadfile("/\(name)")
+            ViewController().downloadfile("/\(name)")
             
             //ViewController().write("/\(name)")
             
             
-            ViewController().filecontent("/\(name)")
-            ViewController().write("\(name)")
+            //ViewController().filecontent("\(name)")
+            //ViewController().write("\(name)")
 
             //ViewController().filecontent("/\(name)")
 

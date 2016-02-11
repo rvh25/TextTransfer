@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
         self.filetext.delegate = self;
         self.fileextension.delegate = self;
         
-        self.modify.delegate = self
+        self.modifytext.delegate = self;
         
         self.modifycontent.delegate = self;
         self.modifycontent.editable = true
@@ -96,6 +96,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
         let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
         
         let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+        //
+        print(fileDestinationUrl)
         do {
             let contentsOfFile = try NSString(contentsOfFile: fileDestinationUrl.path!, encoding: NSUTF8StringEncoding)
             print("Content of file = \(contentsOfFile)")
@@ -143,6 +145,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                 
 
                 let newfilename = String(filename.characters.dropFirst())
+                print(newfilename)
+                
                 
                 if self.checkexisting(newfilename) {
                     let index = newfilename.startIndex
@@ -159,49 +163,59 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                         let newvalue = number! + 1
                         let newchar = String(newvalue)
                         
-                        let index3 = other.endIndex.advancedBy(-2)
-                        let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                        let index3 = other.endIndex.advancedBy(-1)
+                        let other2 = other[Range(start: other.startIndex, end: index3)]
                         print(other2)
                         let name = other2 + newchar + ".txt"
                         
                         return directoryURL.URLByAppendingPathComponent(name)
                     }
                         
-                    if char == "9" {
+                    else if char == "9" {
                         let index3 = other.endIndex.advancedBy(-2)
-                        let char = other[index3]
-                        let charString = String(char)
+                        let char2 = other[index3]
+                        print(char2)
+                        let charString = String(char2)
                         
                         if charString >= "1" && charString <= "8" {
                             let number = Int(charString)
                             let newvalue = number! + 1
                             let newchar = String(newvalue)
                             
-                            let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                            let other2 = other[Range(start: other.startIndex, end: index3)]
                             print(other2)
                             let name = other2 + newchar + "0.txt"
                             
-                            if charString == "9" {
-                                let other2 = newfilename[Range(start: other.startIndex, end: index3)]
-                                print(other2)
-                                let name = other2 + newchar + "100.txt"
+                            return directoryURL.URLByAppendingPathComponent(name)
+                        }
+
+                        if charString == "9" {
+                            let other2 = other[Range(start: other.startIndex, end: index3)]
+                            print(other2)
+                            let name = other2 + "100.txt"
+                            
+                            if self.checkexisting(name) {
+                                let index = name.startIndex
+                                let index2 = name.endIndex.advancedBy(-4)
+                                let other = name[Range(start: index, end: index2)]
+                                print(other)
+                                let newname = other + ".1.txt"
+                                print(newname)
+                                return directoryURL.URLByAppendingPathComponent(newname)
                                 
-                                return directoryURL.URLByAppendingPathComponent(name)
                             }
                             
                             return directoryURL.URLByAppendingPathComponent(name)
-
                         }
-                            
+                                
                         else {
-                            let index3 = other.endIndex.advancedBy(-2)
-                            let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                            let index3 = other.endIndex.advancedBy(-1)
+                            let other2 = other[Range(start: other.startIndex, end: index3)]
                             print(other2)
                             let name = other2  + "10.txt"
-                            
+                                
                             return directoryURL.URLByAppendingPathComponent(name)
                         }
-
                     }
                     
                     else if char == ")" {
@@ -213,14 +227,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
                                 let newvalue = number! + 1
                                 let newchar = String(newvalue)
                                 
-                                let other2 = newfilename[Range(start: other.startIndex, end: index3)]
+                                let other2 = other[Range(start: other.startIndex, end: index3)]
                                 print(other2)
                                 let name = other2 + newchar + ").txt"
                                 
                                 if self.checkexisting(name) {
                                     let index = name.startIndex
                                     let index2 = name.endIndex.advancedBy(-4)
-                                    let other = newfilename[Range(start: index, end: index2)]
+                                    let other = name[Range(start: index, end: index2)]
                                     print(other)
                                     let newname = other + ".1.txt"
                                     print(newname)
@@ -419,24 +433,76 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
     }
     
     @IBAction func Modify(sender: AnyObject) {
-        print(self.modifycontent.text)
-        //print(self.modify.text)
+        //print(self.modifycontent.text)
+//        print(self.modifytext.text!)
+        write("99.txt")
+
     }
     
-    @IBOutlet var modify: UITextField!
+    @IBOutlet var modifytext: UITextField!
+
+    /*func text() -> String {
+        if let a = self.modifytext.text {
+            return self.modifytext.text!
+        }
+        else {
+            return ""
+        }
+    }*/
     
     func write(filepath: String) {
-        /*if (self.modifycontent.text == nil) {
-            print("nil")*/
+        //print(self.modifycontent.text!)
+        //if let text = self.modifytext.text  {
         
-            //let text = "\(self.modifycontent.text)"
-        
-        
+        let text = self.modifytext.text!
+            let fileManager = NSFileManager.defaultManager()
+            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+            let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+            print(fileDestinationUrl)
+            
+            do {
+//                try text.writeToFile(fileDestinationUrl.path!, atomically: true, encoding: NSUTF8StringEncoding)
+                try text.writeToFile(fileDestinationUrl.path!, atomically: true, encoding: NSUTF8StringEncoding)
 
-        let text = "\(self.modify.text!)"
-        print(filepath)
+                //try self.filetext.text!.writeToURL(fileDestinationUrl, atomically: true, encoding: NSUTF8StringEncoding)
+                
+                let contentsOfFile = try! NSString(contentsOfURL: fileDestinationUrl, encoding: NSUTF8StringEncoding)
+                print("Content of file = \(contentsOfFile)")
+                //print("modified content = \()")
+                createfile("\(contentsOfFile)", filename: "/\(filepath)")
+                
+            } catch let error as NSError {
+                print(error)
+                print("No file found")
+            }
+        //}
         
-        //let text = "text"
+        /*else {
+            let text = ""
+            let fileManager = NSFileManager.defaultManager()
+            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+            let fileDestinationUrl = directoryURL.URLByAppendingPathComponent("\(filepath)")
+            print(fileDestinationUrl)
+            
+            do {
+                //try text.writeToFile(fileDestinationUrl.path!, atomically: true, encoding: NSUTF8StringEncoding)
+                try text.writeToURL(fileDestinationUrl, atomically: true, encoding: NSUTF8StringEncoding)
+                
+                let contentsOfFile = try! NSString(contentsOfURL: fileDestinationUrl, encoding: NSUTF8StringEncoding)
+                print("Content of file = \(contentsOfFile)")
+                //print("modified content = \()")
+                createfile("\(contentsOfFile)", filename: "/\(filepath)")
+                
+            } catch let error as NSError {
+                print(error)
+                print("No file found")
+            }
+        }
+        
+        let text = self.modifytext.text!
+        //let text = "\(self.modifytext.text!)"
+        print(filepath)
+
         
         let fileManager = NSFileManager.defaultManager()
         let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
@@ -444,17 +510,20 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate 
         print(fileDestinationUrl)
         
             do {
+                //try text.writeToFile(fileDestinationUrl.path!, atomically: true, encoding: NSUTF8StringEncoding)
                 try text.writeToURL(fileDestinationUrl, atomically: true, encoding: NSUTF8StringEncoding)
 
                 let contentsOfFile = try! NSString(contentsOfURL: fileDestinationUrl, encoding: NSUTF8StringEncoding)
                 print("Content of file = \(contentsOfFile)")
+                //print("modified content = \()")
                 createfile("\(contentsOfFile)", filename: "/\(filepath)")
                 
             } catch let error as NSError {
                 print(error)
                 print("No file found")
-            }
+            }*/
     }
+    
     
     
     @IBAction func cancel(segue:UIStoryboardSegue) {
